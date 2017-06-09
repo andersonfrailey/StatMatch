@@ -7,6 +7,7 @@ from phase2 import phasetwo
 from add_cps_vars import add_cps
 from add_nonfilers import add_nonfiler
 import pandas as pd
+import argparse
 
 """
     Script to run each phase of the matching process
@@ -15,9 +16,18 @@ import pandas as pd
 
 def match(mar_cps_path='asec2014_pubuse_tax_fix_5x8.dat',
           puf_path='puf2009.csv'):
+    # Add arguments for specifying path to CPS file in CSV format
+    # this will allow the program to skip the process of creating the CPS from
+    # a .DAT file.
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-c', '--cps', help='path to CPS file in CSV format')
+    args = parser.parse_args()
 
-    # Create original CPS file
-    mar_cps = cpsmar.create_cps(mar_cps_path)
+    # Create CPS file either from a CPS or through create_cps method
+    if args.cps is not None:
+        mar_cps = pd.read_csv(args.cps)
+    else:
+        mar_cps = cpsmar.create_cps(mar_cps_path)
 
     # If you already have the CPS in CSV format, comment out the line above and
     # uncomment the line bellow to skip creation from the DAT file and use CSV
