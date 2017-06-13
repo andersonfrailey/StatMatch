@@ -842,6 +842,7 @@ class Returns(object):
         # Add age variables together
         self.house_units[iy]['nu05'] += self.house_units[ix]['nu05']
         self.house_units[iy]['nu13'] += self.house_units[ix]['nu13']
+        self.house_units[iy]['nu18_dep'] += self.house_units[ix]['nu18_dep']
         self.house_units[iy]['nu18'] += self.house_units[ix]['nu18']
         self.house_units[iy]['n1821'] += self.house_units[ix]['n1821']
         self.house_units[iy]['n21'] += self.house_units[ix]['n21']
@@ -1019,7 +1020,8 @@ class Returns(object):
                          'zagesp', 'zoldes', 'zyoung', 'zworkc', 'zsocse',
                          'zssinc', 'zpubas', 'zvetbe', 'zfinas', 'zowner',
                          'zwaspt', 'zwassp', 'wasp', 'wass', 'nu05', 'nu13',
-                         'nu18', 'n1821', 'n21', 'elderly_dependent']
+                         'nu18_dep', 'nu18', 'n1821', 'n21',
+                         'elderly_dependent']
         for var in repeated_vars:
             record[var] = unit[var]
 
