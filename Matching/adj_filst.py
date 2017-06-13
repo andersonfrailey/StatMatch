@@ -15,7 +15,7 @@ def adjfilst(cps_recs):
                                  (cps_recs['was'] > 0)), 1, 0)
     cps_recs['case2'] = np.where(((cps_recs['filst'] == 0) &
                                   (cps_recs['was'] <= 0)), 1, 0)
-    np.random.seed(142)
+    np.random.seed(409)
     # the first iteration allowed all case1 and case2 records to be selected
     # since
     # 1) if record was case1 then case2 was set to zero and thus was selected

@@ -37,7 +37,7 @@ class Returns(object):
         # Wage thresholds for non-dependent filers
         self.wage1 = 1000
         self.wage2 = 250
-        self.wage2nk = 1000
+        self.wage2nk = 10000
         self.wage3 = 1
         # Dependent exemption
         self.depExempt = 3950
@@ -905,28 +905,35 @@ class Returns(object):
             if unit['depne'] > 0:
                 if unit['was'] >= self.wage2:
                     unit['filst'] = 1
+            else:
                 if unit['was'] >= self.wage2nk:
                     unit['filst'] = 1
+        elif unit['js'] == 3:
+            if unit['was'] >= self.wage3:
+                unit['filst'] = 1
 
         # Gross income test
+        income = (unit['was'] + unit['intst'] + unit['dbe'] + unit['alimony'] +
+                  unit['bil'] + unit['pensions'] + unit['rents'] +
+                  unit['fil'] + unit['ucomp'])
         if unit['js'] == 1:
             amount = self.single - self.depExempt * unit['depne']
             if unit['agede'] != 0:
                 amount = self.single65 - self.depExempt * unit['depne']
-            if unit['income'] >= amount:
+            if income >= amount:
                 unit['filst'] = 1
         if unit['js'] == 2:
             amount = self.joint - self.depExempt * unit['depne']
             if unit['agede'] == 1:
                 amount = self.joint65one - self.depExempt * unit['depne']
                 amount = self.joint65both - self.depExempt * unit['depne']
-            if unit['income'] >= amount:
+            if income >= amount:
                 unit['filst'] = 1
         if unit['js'] == 3:
             amount = self.hoh
             if unit['agede'] != 0:
                 amount = self.hoh65 - self.depExempt * unit['depne']
-            if unit['income'] >= amount:
+            if income >= amount:
                 unit['filst'] = 1
 
         # Dependent filer test
@@ -934,7 +941,7 @@ class Returns(object):
             unit['filst'] = 1
         # Random selection
         if (unit['js'] == 3 and unit['agede'] > 0 and
-                unit['income'] < 6500 and unit['depne'] > 0):
+                income < 6500 and unit['depne'] > 0):
             unit['filst'] = 0
         # Negative incomet test
         if unit['bil'] < 0 or unit['fil'] < 0 or unit['rents'] < 0:
