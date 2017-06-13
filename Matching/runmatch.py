@@ -21,12 +21,16 @@ def match(mar_cps_path='asec2014_pubuse_tax_fix_5x8.dat',
     # a .DAT file.
     parser = argparse.ArgumentParser()
     parser.add_argument('-c', '--cps', help='path to CPS file in CSV format')
+    parser.add_argument('-d', '--dat', help='path to CPS file in DAT format')
+    parser.add_argument('-p', '--puf', help='path to PUF file in CSV format')
     args = parser.parse_args()
 
     # Create CPS file either from a CPS or through create_cps method
     if args.cps is not None:
         mar_cps = pd.read_csv(args.cps)
     else:
+        if args.dat is not None:
+            mar_cps_path = args.dat
         mar_cps = cpsmar.create_cps(mar_cps_path)
 
     # If you already have the CPS in CSV format, comment out the line above and
@@ -34,7 +38,8 @@ def match(mar_cps_path='asec2014_pubuse_tax_fix_5x8.dat',
 
     # do this initially in an effort to fix warning:
     # "A value is trying to be set on a copy of a slice from a DataFrame"
-
+    if args.puf is not None:
+        puf_path = args.puf
     puf = pd.read_csv(puf_path)
     puf = puf[puf['recid'] != 999999]
 
