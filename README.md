@@ -1,6 +1,4 @@
-# This repository is no longer being actively maintained.
-# The latest version of this statistical matching program can be found in the
-# Open Source Policy Center's [Tax Data repository](https://github.com/open-source-economics/taxdata/tree/master/puf_data/StatMatch)
+# This repository is no longer being actively maintained. The latest version of this statistical matching program can be found in the Open Source Policy Center's [Tax Data repository](https://github.com/open-source-economics/taxdata/tree/master/puf_data/StatMatch)
 
 # StatMatch
 This repo holds scripts for performing a statistical match
